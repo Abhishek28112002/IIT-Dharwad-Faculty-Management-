@@ -10,13 +10,11 @@ CREATE TABLE Instructor (
     performance_score int default 0,
     primary key (instructor_id)
 );
-
 -- Create Specialization table
 CREATE TABLE Specialization (
     instructor_id int not null references Instructor(instructor_id),
     specialization varchar(255) not null
 );
-
 -- Create Courses table
 CREATE TABLE Courses (
     course_id int not null,
