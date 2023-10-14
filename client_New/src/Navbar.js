@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link to="/" className="navbar-brand" style={{ display: 'flex', gap: '8px' }}>
+        <Link to="/Home" className="navbar-brand" style={{ display: 'flex', gap: '8px' }}>
           <img
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAaCAMAAADhRa4NAAAAP1BMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC6E+JdAAAAFXRSTlMATl0OLf8YItgofYzJ57U5oUQGcGhgoUpoAAABI0lEQVR4AY3PB4LEIAgF0A8KGI2jRO9/1k2yffqzd8EVYjwUIgARAFFxj0laskixJPH+DSIrasVFxHBXkgJVZEm4pWtNgAJntdbVbo9LAxaRCES5d4lIxfH+BagiuNKzIkkNLkJbkoQw+nUElXyVYpZlJU8iij/yGJN7Mpw0deYxMn6R7NIojB2XucqO8QePvN9RigOtnPLEHwHYWq5p+obZZZ0RgOJGTEJFLgGPTZGIxwKwbOHs3NJWWh+eW89jFDVc24IGsxCCRtO9+b32sJ2wpy/hrA44BDMnXZiYiLSpLUEXs99btPQyZ8kljz459zK8c+kNb9mmMxmTj8bmNJzdqXnk7M2JAuDupM1bc1dXo7bz4S3yQk4blkM86z8d+5n4AFnmDsTLM5lkAAAAAElFTkSuQmCC"
             alt="IIT Dharwad Logo"
