@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
-export default class Login extends Component {
-  render() {
+import { useNavigate } from 'react-router-dom';
+const SignIn =()=>{
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/Home');
+    window.location.reload();
+  };
     return (
-      <form className='LandingPage'>
+      <div className='LandingPage'>
+        <h3 className='Headin' style={{color:'#167bff'}}>IIT Dharwad Faculty Profile</h3>
+      <form  style={{width:'400px'}} className='FormPage'>
+       
         <h3>Sign In</h3>
         <div className="mb-3">
           <label>Email address</label>
@@ -20,27 +30,17 @@ export default class Login extends Component {
             placeholder="Enter password"
           />
         </div>
-        <div className="mb-3">
-          <div className="custom-control custom-checkbox">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              id="customCheck1"
-            />
-            <label className="custom-control-label" htmlFor="customCheck1">
-              Remember me
-            </label>
-          </div>
-        </div>
-        <div className="d-grid">
+        
+        <div className="d-grid" onClick={handleSubmit}>
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </div>
         <p className="forgot-password text-right">
-          Forgot <a href="#">password?</a>
+          Create new account <a href="/signUp">sign in?</a>
         </p>
       </form>
+      </div>
     )
   }
-}
+export default SignIn;

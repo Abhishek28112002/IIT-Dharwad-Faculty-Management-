@@ -1,8 +1,16 @@
-import React from 'react'
+import React,{useState} from 'react'
 import ProfileCard from '../components/ProfileCard'
 import  Search from '../assets/Search.svg' 
+import plus from '../assets/plus.svg'
+import AddFaculty from '../components/AddFaculty'
 export default function Home() {
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () => setShow(false);
+  const handleShow = () => {console.log(show);setShow(true);}
   return (
+    <div className='container mt-3'>
+      {show && <AddFaculty handleClose={handleClose}/>}
    <div  style={{display:'flex',flexDirection:'column',gap:'24px'}}>
     <div style={{
   display: 'flex',
@@ -35,10 +43,13 @@ export default function Home() {
         />
   </div>
 <div style={{color:'black',display:'flex',alignItems:'center',gap:'12px'}}>
-<div style={{padding:'10px',background:'white'}}>
+<div className='Box'>
   Sort by Departmant
 </div>
 
+</div>
+<div style={{color:'black',display:'flex',alignItems:'center',gap:'12px',background:'#167bff',color:'white'}}className='Box' onClick={handleShow}>
+<img src={plus} style={{width:'24px'}}/>Add 
 </div>
 </div>
 
@@ -52,6 +63,7 @@ export default function Home() {
   </div>
 
 
+   </div>
    </div>
   )
 }

@@ -1,8 +1,17 @@
-import React, { Component } from 'react'
-export default class SignUp extends Component {
-  render() {
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
+const SignUp =()=>{
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/Home');
+    window.location.reload();
+  };
     return (
-      <form>
+      <div className='LandingPage'>
+         <h3 className='Headin' style={{color:'#167bff'}}>IIT Dharwad Faculty Profile</h3>
+      <form style={{width:'400px'}} className='FormPage'>
         <h3>Sign Up</h3>
         <div className="mb-3">
           <label>First name</label>
@@ -32,15 +41,16 @@ export default class SignUp extends Component {
             placeholder="Enter password"
           />
         </div>
-        <div className="d-grid">
+        <div className="d-grid" onClick={handleSubmit} >
           <button type="submit" className="btn btn-primary">
-            Sign Up
+            Sign In
           </button>
         </div>
         <p className="forgot-password text-right">
-          Already registered <a href="/sign-in">sign in?</a>
+          Already registered <a href="/signIn">sign in?</a>
         </p>
       </form>
+      </div>
     )
-  }
 }
+export default SignUp;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom"; // Use BrowserRouter
 import Navbar from "./Navbar";
 import Home from "./pages/Home";
@@ -10,10 +10,14 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
 function App() {
+  const[PathName,setPathName]=useState('/home')
+  useEffect( () => {
+    setPathName(window.location.pathname)
+  },[]);
   return (
     <BrowserRouter>
-      <Navbar />
-      <div className="container mt-3">
+     { PathName!='/signIn' && PathName!='/signUp'&& PathName!='/' && <Navbar />}
+     
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route path="/signIn" element={<Login />} />
@@ -24,7 +28,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Home" element={<Home />} />
         </Routes>
-      </div>
+     
     </BrowserRouter>
   );
 }
