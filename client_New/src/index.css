@@ -19,8 +19,21 @@ background: var(--surface-primary, #FFF);
 .Box{
 border-radius: 8px;
 padding: 10px;
-background: var(--surface-primary, #FFF);
 }
+.active{
+background-color: #0d6efd;
+padding: 2px 5px;
+font-size: 12px;
+border-radius: 8px;
+color: white;
+}
+.inactive{
+  background-color: #dc3545;
+  padding: 2px 5px;
+  font-size: 12px;
+  border-radius: 8px;
+  color: white;
+  }
 .LandingPage{
   background: #fafafa ;
   width: 100vw;
