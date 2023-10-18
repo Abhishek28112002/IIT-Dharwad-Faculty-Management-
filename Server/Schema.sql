@@ -85,3 +85,24 @@ CREATE TABLE MoreInfo (
     born varchar(20),
     about TEXT -- Using TEXT for a longer text column
 );
+
+-- Create PositionsOfResponsibility table
+CREATE TABLE PositionsOfResponsibility (
+    por_id int not null,
+    instructor_id int not null references Instructor(instructor_id),
+    position_name varchar(255) not null,
+    start_date date,
+    end_date date,
+    primary key (por_id)
+);
+
+-- Create Publications table
+CREATE TABLE Publications (
+    publication_id int not null,
+    instructor_id int not null references Instructor(instructor_id),
+    title varchar(255) not null,
+    publication_date date,
+    research_paper_id int not null,
+    publication_type varchar(100),
+    primary key (publication_id)
+);
