@@ -6,7 +6,7 @@ CREATE TABLE Instructor (
     type varchar(255) default 'Permanent',
     salary int default 0,
     email varchar(255) not null, -- Assuming email is a string
-    phone_number varchar(12),
+phone_number varchar(12),
     performance_score int default 0,
     primary key (instructor_id)
 );
