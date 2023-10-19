@@ -37,7 +37,7 @@ const SignIn =()=>{
           </button>
         </div>
         <p className="forgot-password text-right">
-          Create new account <a href="/signUp">sign in?</a>
+          Create new account <a href="/signUp">sign up?</a>
         </p>
       </form>
       </div>
