@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import React, { useState } from "react";
 import Linkdin from "../assets/Linkdin.svg";
 import Gmail from "../assets/Gmail.svg";
+import Edit from "../assets/edit.svg";
 function ProfileCard({data} ) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -22,6 +23,19 @@ function ProfileCard({data} ) {
           }}
         >
           <div style={{ marginLeft: "5px" }}>
+            <a href='/profile/2123'>
+            <img
+              src={Edit}
+              alt="Gmail"
+              style={{
+                width: "24px",
+                height: "24px",
+                marginRight: "5px",
+              }}
+            />
+            </a>
+        </div>
+         {data.linkdin&&<div style={{ marginLeft: "5px" }}>
             <a target="_blank" href={data.linkdin}>
               <img
                 src={Linkdin}
@@ -33,6 +47,7 @@ function ProfileCard({data} ) {
               />
             </a>
           </div>
+}
           <div style={{ marginLeft: "5px" }}>
             <a href={`mailto:${data.email}`} target="_blank">
               <img
@@ -46,6 +61,7 @@ function ProfileCard({data} ) {
               />
             </a>
           </div>
+          
         </div>
       )}
       <Card.Img
@@ -58,8 +74,8 @@ function ProfileCard({data} ) {
         </Card.Text>
         <Card.Text>{data.phone_number}
         </Card.Text>
-        <Card.Text>Performance Score: {data.performance_score}
-        </Card.Text>
+        {/* <Card.Text>Performance Score: {data.performance_score}
+        </Card.Text> */}
       </Card.Body>
     </Card>
   );

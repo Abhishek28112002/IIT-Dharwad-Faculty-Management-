@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import ResearchCard from "../components/ResearchCard";
 import Search from "../assets/Search.svg";
 import {researchData} from "../DumyData";
-import AddFaculty from "../components/AddFaculty";
+import plus from "../assets/plus.svg";
+import AddResearch from "../components/AddResearch";
 export default function Home() {
   
   const [show, setShow] = useState(false);
@@ -35,7 +36,7 @@ export default function Home() {
   };
   return (
     <div className="container mt-3">
-      {show && <AddFaculty handleClose={handleClose} />}
+      {show && <AddResearch handleClose={handleClose} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
@@ -88,7 +89,7 @@ export default function Home() {
             >
               <div className="Box">{SortText}</div>
             </div>
-            {/* <div
+            <div
               style={{
                 color: "black",
                 display: "flex",
@@ -103,7 +104,7 @@ export default function Home() {
             >
               <img src={plus} style={{ width: "24px" }} />
               Add
-            </div> */}
+            </div>
           </div>
         </div>
 
