@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import PublicationCard from "../components/PublicationCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddFaculty from "../components/AddFaculty";
-import {publicationData} from "../DumyData";
 export default function Publication() {
-  const [show, setShow] = useState(false);
+
+  const[publicationData,setpublicationData] = useState([]);
   const [filtereddata, setFiltereddata] = useState(publicationData);
+  useEffect(()=>{
+    async function publication(){
+    let api_publication_data = await fetch('http://127.0.0.1:8000/All_Publications');
+    api_publication_data = await api_publication_data.json();
+    setpublicationData(api_publication_data);
+    setFiltereddata(api_publication_data);
+    console.log(api_publication_data);
+    }    
+   publication();
+  },[]);
+
+
+  const [show, setShow] = useState(false);
   const SearchData = () => {
     const search = document.getElementById("search").value;
     const filtered = publicationData.filter(

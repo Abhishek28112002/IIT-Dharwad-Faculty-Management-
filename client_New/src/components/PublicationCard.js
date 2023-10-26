@@ -5,13 +5,12 @@ import Card from 'react-bootstrap/Card';
 function Publication({data}) {
   return (
     <Card>
-    <Card.Header>{data.researchName}</Card.Header>
     <Card.Body>
       <Card.Title>{data.title}</Card.Title>
       <Card.Text>
-        By  {data.professorNames.map((prof) => (
+        By  {data.name.map((prof) => (
             <span key={prof}>
-              {prof}
+              {prof} {','}
             </span>
           ))}
       {''}  Departmant of {data.department}
@@ -19,7 +18,7 @@ function Publication({data}) {
       <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
       <Button variant="primary">Check it</Button>
       <Card.Text>
-        {data.date}
+        {data.publication_dates}
         </Card.Text>
       </div>
     </Card.Body>

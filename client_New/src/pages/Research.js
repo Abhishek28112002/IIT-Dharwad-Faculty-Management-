@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import ResearchCard from "../components/ResearchCard";
 import Search from "../assets/Search.svg";
-import {researchData} from "../DumyData";
 import AddFaculty from "../components/AddFaculty";
 export default function Home() {
   
-  const [show, setShow] = useState(false);
+  const[researchData,setResearchdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState(researchData);
+  useEffect(()=>{
+    async function fetchresearchdata(){
+       let api_research_data = await fetch('http://127.0.0.1:8000/All_Research');
+       api_research_data = await api_research_data.json();
+       console.log(api_research_data)
+       setResearchdata(api_research_data);
+       setFiltereddata(api_research_data);
+    }
+    fetchresearchdata();
+  },[])
+
+  const [show, setShow] = useState(false);
   const SearchData = () => {
     const search = document.getElementById("search").value;
     const filtered = researchData.filter(
