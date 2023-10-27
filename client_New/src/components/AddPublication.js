@@ -3,12 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-function AddResearch({handleClose}) {
+function AddPublication({handleClose}) {
   return (
     <>
       <Modal show='true' centered='true'>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Add Research</Modal.Title>
+          <Modal.Title>Add Publication</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -21,37 +21,22 @@ function AddResearch({handleClose}) {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Research Area</Form.Label>
+              <Form.Label>Publication Date</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Research Area"
+                type="date"
+                placeholder="Publication date"
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
-        <Form.Label>Status</Form.Label>
-        <Form.Control
-          as="select"
-          autoFocus
-        >
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </Form.Control>
-      </Form.Group>
+            
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Proffesor</Form.Label>
+              <Form.Label>Paper Link</Form.Label>
               <Form.Control
-                type="text"
+                type="link"
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Budget (In INR)</Form.Label>
-              <Form.Control
-                type="Number"
-                autoFocus
-              />
-            </Form.Group>
+            
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -67,4 +52,4 @@ function AddResearch({handleClose}) {
   );
 }
 
-export default AddResearch;
+export default AddPublication;

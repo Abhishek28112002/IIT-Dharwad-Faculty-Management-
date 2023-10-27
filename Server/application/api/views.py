@@ -82,6 +82,31 @@ def add_faculty(request):
         cursor.execute(insert_query,[department,email,instructor_id,name,salary,phone_number,performance_score,type])
     return JsonResponse({'data inserted successfully'})
 
+def Edit_faculty(request):
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        name = data.get('name')
+        email = data.get('email')
+        profile_pic = data.get('profile_pic')
+        department = data.get('department')
+        password = data.get('password')
+        phone_number = data.get('phone_number')
+    with connection.cursor() as cursor:
+        update_query = "update api_instructor set name=%s,email=%s,profile_pic=%s,department=%s,password=%s,phone_number=%s"
+        cursor.execute(update_query,[name,email,profile_pic,department,password,phone_number])
+    return JsonResponse({'data edited successfully'})
+
+# def Delete_faculty(request):
+#     if(request.method == 'DELETE'):
+#         data = json.loads(request.body)
+#         instructor_id = data.get('instructor_id')
+#     with connection.cursor() as cursor:
+#         Delete_query = "delete from api_instructor where instructor_id = %s"
+#         cursor.execute(Delete_query , [instructor_id])
+#     return JsonResponse({'data has been deleted'})
+
+
+
 # research apis
 
 def All_Research(request):
@@ -102,7 +127,6 @@ def All_Research(request):
     return HttpResponse(json.dumps(research_data), content_type='text/plain')
 
 
-
 def Faculty_by_deaprtment_research(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT research_department, ARRAY_AGG(status) as status, ARRAY_AGG(research_area) as research_area, ARRAY_AGG(budget) as budget, ARRAY_AGG(research_topic) as research_topic  FROM api_Research_by_faculty GROUP BY research_department")
@@ -113,7 +137,7 @@ def Faculty_by_deaprtment_research(request):
         research_dict = {
             'status': each_research[0],
             'research_area': each_research[1],
-            'budget': each_research[2],     
+            'budget': each_research[2], 
             'research_topic' :each_research[3],
             'research_department' :  each_research[4],
         }
@@ -132,6 +156,19 @@ def add_reaserch(request):
         insert_query = "insert into api_Research_by_faculty(status,research_area,budget,research_topic,research_department) value(%s,%s,%s,%s,%s,%s,%s,%s)"
         cursor.execute(insert_query,[status,research_area,budget,research_topic,research_department])
     return JsonResponse({'data inserted successfully'})
+
+def Edit_Research(request):
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        research_topic = data.get('research_topic')
+        research_area = data.get('research_area')
+        status = data.get('status')
+        professor = data.get('professor')
+        budget = data.get('budget')
+    with connection.cursor() as cursor:
+        update_query = "update api_Research_by_faculty set research_topic=%s,research_area=%s,status=%s,professor=%s,budget=%s"
+        cursor.execute(update_query,[research_topic,research_area,status,professor,budget])
+    return JsonResponse({'data edited successfully'})
 
 # publications api 
 # def Faculty_by_deaprtment_publications(request):
@@ -187,6 +224,21 @@ def add_publication(request):
         insert_query = "insert into api_Publications(publication_id,instructor_id,title,publication_date,research_paper_id,publication_type) value(%s,%s,%s,%s,%s,%s,%s,%s)"
         cursor.execute(insert_query,[publication_id,instructor_id,title,publication_date,research_paper_id,publication_type])
     return JsonResponse({'data inserted successfully'})
+
+def Edit_Publication(request):
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        publication_id = data.get('publication_id')
+        instructor_id = data.get('instructor_id')
+        title = data.get('title')
+        publication_date = data.get('publication_date')
+        research_paper_id = data.get('research_paper_id')
+        publication_type = data.get('publication_type')
+    with connection.cursor() as cursor:
+        update_query = "update api_Publications set publication_id=%s,instructor_id=%s,title=%s,publication_date=%s,research_paper_id=%s,publication_type=%s"
+        cursor.execute(update_query,[publication_id,instructor_id,title,publication_date,research_paper_id,publication_type])
+    return JsonResponse({'data edited successfully'})
+
 
 #search functionality
 
@@ -256,6 +308,28 @@ def search_publications(request):
         }
         publications_data.append(publications_dict)
     return HttpResponse(json.dumps(publications_data), content_type='text/plain')
+
+# def personal_info(request):
+#      with connection.cursor() as cursor:
+#        query = "select email,department,type,salary,phone_number from api_instructor"
+#        cursor.execute(query)
+#        information = cursor.fetchall()
+    
+#      personal_data = []
+#      for data in information:
+#         personal_dict ={
+#             'email' : data[0],
+#             'department' : data[1],
+#             'type':data[2],
+#             'salary':data[3],
+#             'phone_number':data[4]
+#         }
+#         personal_data.append(personal_dict)
+#      return HttpResponse(json.dumps(personal_data),content_type='text/plain')
+    
+
+
+    
 
 
 

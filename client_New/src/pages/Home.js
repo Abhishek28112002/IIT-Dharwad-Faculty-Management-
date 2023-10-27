@@ -14,6 +14,7 @@ export default function Home() {
       let api_data = await fetch('http://127.0.0.1:8000/instructors/');
       api_data = await api_data.json();
       setdata(api_data);
+      console.log(api_data);
       setFiltereddata(api_data);
     }
     catch(error)

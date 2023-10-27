@@ -12,6 +12,14 @@ function AddFaculty({handleClose}) {
         </Modal.Header>
         <Modal.Body>
           <Form>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="name"
+                autoFocus
+              />
+            </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -21,9 +29,32 @@ function AddFaculty({handleClose}) {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Profile Image</Form.Label>
+              <Form.Control
+                type="link"
+                placeholder="https://example.image"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>DepartMent</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Electrical"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Phone No</Form.Label>
+              <Form.Control
+                type="tel"
                 autoFocus
               />
             </Form.Group>

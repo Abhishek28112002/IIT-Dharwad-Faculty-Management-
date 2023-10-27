@@ -22,7 +22,8 @@ urlpatterns = [
 
     path('add_faculty',views.add_faculty,name = 'add_faculty'),
     path('add_publication',views.add_publication,name='add_publication'),
-    path('add_reaserch',views.add_reaserch,name='add_reaserch')
+    path('add_reaserch',views.add_reaserch,name='add_reaserch'),
 
-    #EDIT, DELETE, allinfo
+    # path('personal_information', views.personal_info,name='personal_info'),
+
 ]

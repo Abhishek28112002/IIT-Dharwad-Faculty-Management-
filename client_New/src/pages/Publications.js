@@ -2,7 +2,8 @@ import React, { useState,useEffect } from "react";
 import PublicationCard from "../components/PublicationCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
-import AddFaculty from "../components/AddFaculty";
+import AddPublication from "../components/AddPublication";
+import {publicationData} from "../DumyData";
 export default function Publication() {
 
   const[publicationData,setpublicationData] = useState([]);
@@ -48,7 +49,7 @@ export default function Publication() {
   };
   return (
     <div className="container mt-3">
-      {show && <AddFaculty handleClose={handleClose} />}
+      {show && <AddPublication handleClose={handleClose} />}
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div
           style={{
