@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse
 from django.http import JsonResponse
 from django.core import serializers
 from django.db import connection
+from django.middleware.csrf import get_token
 import json
 
 #all faculty apis
@@ -28,7 +29,7 @@ def All_faculty(request):
     
 def Faculty_by_deaprtment(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT array_agg(instructor_id) as instructor_id , array_agg(name) as name , department , ARRAY_AGG(type) as type, ARRAY_AGG(salary) as salary ,ARRAY_AGG(email) as email, ARRAY_AGG(phone_number) as phone_number  FROM api_instructor GROUP BY department")
+        cursor.execute("SELECT instructor_id, name, department, type, salary,  email, phone_number FROM api_instructor ORDER BY department")
         instructors = cursor.fetchall()
     
     instructors_data = []
@@ -46,41 +47,43 @@ def Faculty_by_deaprtment(request):
     return HttpResponse(json.dumps(instructors_data), content_type='text/plain')
 
 
-def Faculty_by_performance_score(request):
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT performance_score, ARRAY_AGG(email) as email, ARRAY_AGG(instructor_id) as instructor_id, ARRAY_AGG(name) as name, ARRAY_AGG(salary) as salary, ARRAY_AGG(phone_number) as phone_number , ARRAY_AGG(department) as department , ARRAY_AGG(type) as type  FROM api_instructor GROUP BY performance_score")
-        instructors = cursor.fetchall()
+# def Faculty_by_performance_score(request):
+#     with connection.cursor() as cursor:
+#         cursor.execute("SELECT performance_score, ARRAY_AGG(email) as email, ARRAY_AGG(instructor_id) as instructor_id, ARRAY_AGG(name) as name, ARRAY_AGG(salary) as salary, ARRAY_AGG(phone_number) as phone_number , ARRAY_AGG(department) as department , ARRAY_AGG(type) as type  FROM api_instructor GROUP BY performance_score")
+#         instructors = cursor.fetchall()
     
-    instructors_data = []
-    for instructor in instructors:
-        instructor_dict = {
-            'department': instructor[0],
-            'email': instructor[1],
-            'instructor_id': instructor[2],
-            'name': instructor[3],
-            'salary': instructor[4],  
-            'phone_number': instructor[5],  
-            'performance_score': instructor[6],
-            'type' :instructor[7],
-        }
-        instructors_data.append(instructor_dict)
-    return HttpResponse(json.dumps(instructors_data), content_type='text/plain')
-
+#     instructors_data = []
+#     for instructor in instructors:
+#         instructor_dict = {
+#             'department': instructor[0],
+#             'email': instructor[1],
+#             'instructor_id': instructor[2],
+#             'name': instructor[3],
+#             'salary': instructor[4],  
+#             'phone_number': instructor[5],  
+#             'performance_score': instructor[6],
+#             'type' :instructor[7],
+#         }
+#         instructors_data.append(instructor_dict)
+#     return HttpResponse(json.dumps(instructors_data), content_type='text/plain')
 def add_faculty(request):
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         data = json.loads(request.body)
         department = data.get('department')
         email = data.get('email')
         instructor_id = data.get('instructor_id')
         name = data.get('name')
-        salary= data.get('salary')
-        phone_number = data.get('phone_number')
-        performance_score = data.get('performance_score')
+        salary = data.get('salary')
+        phoneNo = data.get('phoneNo')
         type = data.get('type')
-    with connection.cursor() as cursor:
-        insert_query = "insert into api_instructor(department,email,instructor_id,name,salary,phone_number,performance_score,type) value(%s,%s,%s,%s,%s,%s,%s,%s)"
-        cursor.execute(insert_query,[department,email,instructor_id,name,salary,phone_number,performance_score,type])
-    return JsonResponse({'data inserted successfully'})
+
+        with connection.cursor() as cursor:
+            insert_query = "INSERT INTO api_instructor (department, email, instructor_id, name, salary, phoneNo, type) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(insert_query, [department, email, instructor_id, name, salary, phoneNo, type])
+            cursor.commit()
+    else:
+        print('Tumse na ho payega')
+
 
 def Edit_faculty(request):
     if(request.method == 'PUT'):
@@ -129,7 +132,7 @@ def All_Research(request):
 
 def Faculty_by_deaprtment_research(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT research_department, ARRAY_AGG(status) as status, ARRAY_AGG(research_area) as research_area, ARRAY_AGG(budget) as budget, ARRAY_AGG(research_topic) as research_topic  FROM api_Research_by_faculty GROUP BY research_department")
+        cursor.execute("SELECT  status, research_area, budget,research_topic,research_department FROM api_Research_by_faculty ORDER BY research_department")
         research = cursor.fetchall()
     
     research_data = []
@@ -327,11 +330,41 @@ def search_publications(request):
 #         personal_data.append(personal_dict)
 #      return HttpResponse(json.dumps(personal_data),content_type='text/plain')
     
+#sigin , signup
 
-
+def signup(request):
+    if(request.method == 'POST'):
+        data = json.loads(request.body)
+        print(data)
+        name = data.get('name')
+        email = data.get('email')
+        department = data.get('department')
+        password = data.get('password')
+        phone_number = data.get('phoneNo')
+    with connection.cursor() as cursor:
+        insert_query = "insert into api_instructor(name,email,department,password,phone_number) values(%s,%s,%s,%s,%s)"
+        cursor.execute(insert_query,[name,email,department,password,phone_number])
+        connection.commit()
+    return JsonResponse({'message': 'USER CREATED'})
     
+def sigin(request):
+    if(request.method == 'POST'):
+        data = json.loads(request.body)
+        email  = data.get('email')
+        password = data.get('password')
+    with connection.cursor() as cursor:
+        get_query = "select * from api_instructor where email=%s,password=%s"
+        cursor.execute(get_query,[email,password])
+        user = cursor.fetchone()
+    
+    if user:
+        return HttpResponse({'USER EXISTS'})
+    else:
+        return HttpResponse({'USER DOESNT EXISTS'})
 
-
+def get_csrf_token(request):
+    csrf_token = get_token(request)
+    return JsonResponse({'csrfToken': csrf_token})
 
 def index(request):
     return HttpResponse("helloo world")

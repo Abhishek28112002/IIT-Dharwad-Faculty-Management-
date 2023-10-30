@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Course from "./pages/Course";
 import { GetItemLocalStorage } from "./Services";
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path="/Profile" element={isAuthenticated ? <Profile /> : <Navigate to="/signIn" replace />} />
         <Route path="/Profile/:id" element={isAuthenticated ? <Profile /> : <Navigate to="/signIn" replace />} />
         <Route path="/Home" element={isAuthenticated ? <Home /> : <Navigate to="/signIn" replace />} />
+        <Route path="/courses" element={isAuthenticated ? <Course /> : <Navigate to="/signIn" replace />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,32 +1,29 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ProfileCard from "../components/ProfileCard";
 import Search from "../assets/Search.svg";
 import plus from "../assets/plus.svg";
 import AddFaculty from "../components/AddFaculty";
-
+import { PostDataApiCalls, GetDataApiCalls } from "../Services";
 export default function Home() {
-
-  const [data,setdata] = useState([]);
+  const [data, setdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState(data);
-  useEffect(()=>{
-   async function fetchdata() {
-    try{
-      let api_data = await fetch('http://127.0.0.1:8000/instructors/');
-      api_data = await api_data.json();
-      setdata(api_data);
-      console.log(api_data);
-      setFiltereddata(api_data);
-    }
-    catch(error)
-    {
-      console.log(error);
-    }
+  useEffect(() => {
+    async function fetchdata() {
+      try {
+        let api_data = await GetDataApiCalls('instructors/');
+        if (api_data.message === "Failed") api_data = [];
+        setdata(api_data);
+        console.log(api_data);
+        setFiltereddata(api_data);
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchdata();
-  },[]);
+  }, []);
 
   const [show, setShow] = useState(false);
-  
+
   const SearchData = () => {
     const search = document.getElementById("search").value;
     const filtered = data.filter(
@@ -37,15 +34,14 @@ export default function Home() {
     setFiltereddata(filtered);
   };
 
+  const [SortText, setSortText] = useState("Sort by Department");
 
-  const [SortText, setSortText] = useState("Sort by Departmant");
-
-  async function fetch_department_sorted_data(){
-    let sorted_data = await fetch('http://127.0.0.1:8000/department_sorted_instructors');
-    sorted_data = await sorted_data.json();
+  async function fetch_department_sorted_data() {
+    let sorted_data = await GetDataApiCalls("department_sorted_instructors");
+    if (sorted_data.message === "Failed") sorted_data = [];
     setFiltereddata(sorted_data);
   }
-   
+
   const SortData = () => {
     let filter = [...data];
     if (SortText === "Sort by Department") {

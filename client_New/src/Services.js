@@ -5,7 +5,7 @@ export const GetItemLocalStorage=(type)=>{
    let data= localStorage.getItem(type);
    return data;
 }
-let url='http://12323123';
+let url='http://127.0.0.1:8000/';
 export const PostDataApiCalls=async(endpoint,data)=>{
    try{
        let response=await fetch(url+endpoint,{

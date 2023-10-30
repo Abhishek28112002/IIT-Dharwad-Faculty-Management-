@@ -1,17 +1,18 @@
 import React, { useState,useEffect } from "react";
 import ResearchCard from "../components/ResearchCard";
 import Search from "../assets/Search.svg";
-import {researchData} from "../DumyData";
 import plus from "../assets/plus.svg";
 import AddResearch from "../components/AddResearch";
+import { GetDataApiCalls } from "../Services";
 export default function Home() {
   
   const[researchData,setResearchdata] = useState([]);
   const [filtereddata, setFiltereddata] = useState(researchData);
   useEffect(()=>{
     async function fetchresearchdata(){
-       let api_research_data = await fetch('http://127.0.0.1:8000/All_Research');
-       api_research_data = await api_research_data.json();
+       let api_research_data = await GetDataApiCalls('All_Research');
+       if(api_research_data.message === 'Failed')
+       api_research_data = []
        console.log(api_research_data)
        setResearchdata(api_research_data);
        setFiltereddata(api_research_data);

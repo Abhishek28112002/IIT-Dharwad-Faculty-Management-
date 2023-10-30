@@ -9,6 +9,7 @@ class Instructor(models.Model):
     salary = models.IntegerField(default=0)
     email = models.CharField(max_length=255, default='example@123')
     phone_number = models.CharField(max_length=12 ,default='9389040033')
+    profile_picture = models.FileField(upload_to='profile_pics/' , default=' ')
 
 class Research_by_faculty(models.Model):
     research_id = models.IntegerField(primary_key= True,default=1)
@@ -39,4 +40,15 @@ class Teaches(models.Model):
     instructor_id = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=False)
     batch_year = models.IntegerField(max_length=255,null=False)
     semester = models.IntegerField(max_length=255,null=False)
+
+class Specialization(models.Model):
+    instructor_id = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=False)
+    Specialization = models.CharField(max_length=255)
+
+class Awards(models.Model):
+    instructor_id = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=False)
+    award_name = models.CharField(max_length=255)
+    award_date = models.DateField()
+    award_reason = models.CharField(max_length=255)
+
 
